@@ -1,6 +1,6 @@
 Gem::Specification.new {|gem|
     gem.name            = 'openal'
-    gem.version         = '0.1.1'
+    gem.version         = '0.1.2'
     gem.date            = '2016-03-22'
     gem.summary         = 'OpenAL SOFT wrapper for Ruby with EFX/EXT support'
     gem.description     = 'A lightweight FFI wrapper around OpenAL SOFT for use in Ruby.  It is built against ' +
@@ -15,6 +15,9 @@ Gem::Specification.new {|gem|
                             'lib/al.rb',
                             'lib/alc.rb',
                             'lib/efx.rb',
-                            'lib/ext.rb'
+                            'lib/ext.rb',
+                            'lib/efx/equalizer.rb',
+                            'lib/efx/reverb.rb',
+                            'lib/util/pointers.rb'
                           ]
 }

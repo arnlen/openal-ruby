@@ -2,7 +2,7 @@ require 'efx'
 require 'util/pointers'
 
 # Reverberation properties for a sound-scape.
-class Reverb
+class EFX::Reverb
     include EFX
 
     # Reverb density

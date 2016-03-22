@@ -2,7 +2,7 @@ require 'efx'
 require 'util/pointers'
 
 # OpenAL EFX-based equalizer.
-class Equalizer
+class EFX::Equalizer
     include EFX
 
     # Low gain
