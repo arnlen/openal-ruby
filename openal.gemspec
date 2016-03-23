@@ -1,5 +1,5 @@
 Gem::Specification.new {|gem|
-    gem.name            = 'openal'
+    gem.name            = 'openal-soft'
     gem.version         = '0.1.2'
     gem.date            = '2016-03-22'
     gem.summary         = 'OpenAL SOFT wrapper for Ruby with EFX/EXT support'
