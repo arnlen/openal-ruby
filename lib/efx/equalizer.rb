@@ -114,7 +114,7 @@ class EFX::Equalizer
         if @filter.nil?
             ptr = 0.pointer
             alGenFilters( 1, ptr )
-            @filter = ptr.read_uint32
+            @filter = ptr.read_uint
         end
         @filter
     end

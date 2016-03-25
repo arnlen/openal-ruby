@@ -41,7 +41,7 @@ class EFX::Reverb
         # generate effect slot
         efxptr = 0.pointer
         alGenEffects( 1, efxptr )
-        @effect = efxptr.read_uint32
+        @effect = efxptr.read_uint
 
         # bind it
         alEffecti( @effect, AL_EFFECT_TYPE, AL_EFFECT_REVERB )
