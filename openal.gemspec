@@ -1,7 +1,7 @@
 Gem::Specification.new {|gem|
     gem.name            = 'openal-soft'
-    gem.version         = '0.1.4'
-    gem.date            = '2016-03-25'
+    gem.version         = '0.1.6'
+    gem.date            = '2016-04-27'
     gem.summary         = 'OpenAL SOFT wrapper for Ruby with EFX/EXT support'
     gem.description     = 'A lightweight FFI wrapper around OpenAL SOFT for use in Ruby.  It is built against ' +
                           'MRI 2.3.0 and should have cross-platform functionality with most other major Rubys.'

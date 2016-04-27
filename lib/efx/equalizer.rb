@@ -31,6 +31,7 @@ class EFX::Equalizer
     # Initialize.
     def initialize( low_gain: 1.0, low_cutoff: 1.0, mid1_gain: 1.0, mid1_center: 1.0, mid1_width: 1.0, mid2_gain: 1.0,
                     mid2_center: 1.0, mid2_width: 1.0, high_gain: 1.0, high_cutoff: 1.0 )
+        @filter = nil
         self.low_gain = low_gain
         self.low_cutoff = low_cutoff
         self.mid1_gain = mid1_gain
