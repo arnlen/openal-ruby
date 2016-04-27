@@ -12,7 +12,9 @@ TrueClass.class_eval %q{
 
     # Convert to a FFI::MemoryPointer.
     def pointer()
-        1.pointer
+        ptr = FFI::MemoryPointer.new( :char, 1 )
+        ptr.write_char( 1 )
+        ptr
     end
 }
 
@@ -20,7 +22,9 @@ FalseClass.class_eval %q{
 
     # Convert to a FFI::MemoryPointer.
     def pointer()
-        0.pointer
+        ptr = FFI::MemoryPointer.new( :char, 1 )
+        ptr.write_char( 0 )
+        ptr
     end
 }
 
@@ -36,7 +40,9 @@ Fixnum.class_eval %q{
 
     # Convert to a FFI::MemoryPointer.
     def pointer()
-        [self].pointer( :int )
+        ptr = FFI::MemoryPointer.new( :int, 1 )
+        ptr.write_int( self )
+        ptr
     end
 }
 
@@ -44,7 +50,9 @@ Bignum.class_eval %q{
 
     # Convert to a FFI::MemoryPointer.
     def pointer()
-        [self].pointer( :long )
+        ptr = FFI::MemoryPointer.new( :long, 1 )
+        ptr.write_int( self )
+        ptr
     end
 }
 
@@ -52,7 +60,9 @@ Float.class_eval %q{
 
     # Convert to a FFI::MemoryPointer.
     def pointer()
-        [self].pointer( :float )
+        ptr = FFI::MemoryPointer.new( :float, 1 )
+        ptr.write_int( self )
+        ptr
     end
 }
 
@@ -60,48 +70,48 @@ Array.class_eval %q{
 
     # Convert to a FFI::MemoryPointer.
     def pointer( type = nil )
-        # perform introspection and allocate the pointer
-        ptr = nil
         case type ||= self[0]
             when Bignum, :long, :int64, :int64_t
-                p = 'q'
                 ptr = FFI::MemoryPointer.new( :long, self.length )
+                ptr.write_array_of_long( self )
+                ptr
             when :ulong, :uint64, :uint64_t
-                p = 'Q'
-                ptr = FFI::MemoryPointer.new( :long, self.length )
+                ptr = FFI::MemoryPointer.new( :ulong, self.length )
+                ptr.write_array_of_ulong( self )
+                ptr
             when Fixnum, :int, :int32, :int32_t
-                p = 'l'
                 ptr = FFI::MemoryPointer.new( :int, self.length )
+                ptr.write_array_of_int( self )
+                ptr
             when :uint, :uint32, :uint32_t
-                p = 'L'
-                ptr = FFI::MemoryPointer.new( :int, self.length )
+                ptr = FFI::MemoryPointer.new( :uint, self.length )
+                ptr.write_array_of_uint( self )
+                ptr
             when :short, :int16, :int16_t
-                p = 's'
                 ptr = FFI::MemoryPointer.new( :short, self.length )
+                ptr.write_array_of_short( self )
+                ptr
             when :ushort, :uint16, :uint16_t
-                p = 'S'
-                ptr = FFI::MemoryPointer.new( :short, self.length )
-            when :byte, :char
-                p = 'c'
+                ptr = FFI::MemoryPointer.new( :ushort, self.length )
+                ptr.write_array_of_ushort( self )
+                ptr
+            when :byte, :char, :ubyte, :uchar
                 ptr = FFI::MemoryPointer.new( :char, self.length )
-            when :ubyte, :uchar
-                p = 'C'
-                ptr = FFI::MemoryPointer.new( :char, self.length )
+                ptr.write_array_of_char( self )
+                ptr
             when Float, :float
-                p = 'f'
                 ptr = FFI::MemoryPointer.new( :float, self.length )
+                ptr.write_array_of_float( self )
+                ptr
             when :double
-                p = 'd'
                 ptr = FFI::MemoryPointer.new( :double, self.length )
-            when String
-                return join.pointer
+                ptr.write_array_of_double( self )
+                ptr
+            when String, :string
+                join.pointer
             else
                 raise Exception, "unrecognized or invalid data type: #{type.class.name}"
         end
-
-        # fill with byte data
-        ptr.write_bytes( self.pack( p ) )
-        ptr
     end
 }
 
