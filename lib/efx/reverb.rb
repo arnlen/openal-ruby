@@ -149,6 +149,11 @@ class EFX::Reverb
         alDeleteEffects( 1, @effect.pointer )
     end
 
+    # Produce a Hash-compatible representation of this Reverb object.
+    def to_h()
+        Hash[ instance_variables.select {|sym| not sym.eql? :effect }.map {|sym| [ sym, instance_variable_get( sym ) ] } ]
+    end
+
     alias :rolloff_factor :rolloff
     alias :decay :decay_time
     alias :limit :decay_limit
