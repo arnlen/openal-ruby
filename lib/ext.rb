@@ -25,7 +25,7 @@ module ALext
                 File.expand_path('bin') + '/soft_oal.dll'
             else
                 warn 'No OpenAL Soft detected; falling back to default implementation'
-                'C:/Windows/System32openal32.dll'
+                'C:/Windows/System32/openal32.dll'
             end
         when /linux|unix|bsd/ix
             'libopenal.so'
