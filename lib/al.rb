@@ -6,7 +6,7 @@ module AL
     # handle initialization
     ffi_lib case RbConfig::CONFIG['host_os']
         when /mac\s?os|darwin/ix
-            'libopenal.dylib'   # TODO ensure this is part of the DYLD_LIBRARY_PATH
+            ENV['LIBOPENAL_PATH'] || 'libopenal.dylib'   # TODO ensure this is part of the DYLD_LIBRARY_PATH
         when /mswin|msys|mingw|cygwin|bcwin|wince|emc/ix
             if File.exists? 'C:/Windows/System32/soft_oal.dll'
                 'C:/Windows/System32/soft_oal.dll'
